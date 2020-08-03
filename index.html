@@ -1,1 +1,50 @@
 <h1>Ticket Checker</h1>
+<button onclick="startFetch()">Fetch</button>
+<p id="demo"></p>
+
+<script>
+
+    function startFetch(){
+
+        setInterval(function(){ fetchData() }, 5000);
+
+
+    }
+
+    function fetchData(){
+      var x =   fetch("https://tickets.mackinternational.de/de/days_available/1f736fdb-9398-11ea-8228-005056a905f7", {
+    "headers": {
+      "accept": "*/*",
+      "accept-language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
+      "cache-control": "no-cache",
+      "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryg4Gh16lyX6HfvANv",
+      "pragma": "no-cache",
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-origin",
+      "x-requested-with": "XMLHttpRequest",
+      "cookie": "OptanonAlertBoxClosed=2020-08-03T18:24:52.474Z; _ga=GA1.3.99029298.1596479070; _gid=GA1.3.551145495.1596479070; _ga=GA1.2.374262810.1596479187; _gid=GA1.2.902464762.1596479187; MMTS=0a08c42724b094e340b63414b7ee5ce1; QueueITAccepted-SDFrts345E-V3_europaparktickets4=EventId%3Deuropaparktickets4%26QueueId%3D00000000-0000-0000-0000-000000000000%26RedirectType%3Dafterevent%26IssueTime%3D1596483552%26Hash%3Dc116a00a9d3865835e761ecb2ae3297b4a6d46bdda9aa0be07c918b918a7111e; _gat_UA-42886392-1=1; _hjid=6037bc91-1351-4a52-b5bb-d43117762fec; OptanonConsent=isIABGlobal=false&datestamp=Mon+Aug+03+2020+21%3A39%3A40+GMT%2B0200+(Mitteleurop%C3%A4ische+Sommerzeit)&version=6.3.0&consentId=61ded33f-8c3e-4e61-89f8-a72bbdbdae6d&interactionCount=2&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1&hosts=oqy%3A1%2Cofi%3A1%2Cazg%3A1%2CH20%3A1%2CH19%3A1%2CH18%3A1%2CH8%3A1%2Csjv%3A1%2CH15%3A1%2Cuzn%3A1&AwaitingReconsent=false&geolocation=%3B"
+    },
+    "referrer": "https://tickets.mackinternational.de/de/suche",
+    "referrerPolicy": "no-referrer-when-downgrade",
+    "body": "------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"adults\"\r\n\r\n1\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"children\"\r\n\r\n0\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"seniors\"\r\n\r\n0\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"handycapped\"\r\n\r\n0\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"amount\"\r\n\r\n0\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv\r\nContent-Disposition: form-data; name=\"productId\"\r\n\r\n256\r\n------WebKitFormBoundaryg4Gh16lyX6HfvANv--\r\n",
+    "method": "POST",
+    "mode": "cors"
+  });
+  x.then(function doIt(finalResult){
+    finalResult.json().then(function parseFinished(resultJson){
+        console.log(resultJson);
+        if(resultJson.availabilities.days["2020-08-08"][256].tarifs[58026].soldOut == false){
+            document.getElementById("demo").innerHTML += "ticket verfügbar <br\>"
+        }
+        else{
+            document.getElementById("demo").innerHTML += "ticket sold out <br\>"
+        }
+    }
+    
+    )
+  }
+  );
+    }
+
+</script>
